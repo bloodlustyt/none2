@@ -96,7 +96,7 @@ async def get_msg(userbot, client, sender, msg_link, edit):
         await client.copy_message(int(sender), chat, msg_id)
         await edit.delete()
         
-@Bot.on_message(filters.private)
+@Bot.on_message(filters.private & filters.incomming)
 async def clone(bot, event):
     link = get_link(event.text)
     if not link:
