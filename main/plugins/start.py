@@ -11,7 +11,25 @@ from main.plugins.main import Bot
 from main.plugins.helpers import login, logout
 from main.Database.database import Database
 
-st = "__Send me Link of any message to clone it here, For private channel message, send invite link first.__\n\nSUPPORT: @TeamDrone\nDEV: @MaheshChauhan"
+st = "Send me __Link__ of any __Public__ channel message to clone it here, For __private__ channel message, First __Login__ then send any __message link__ from your chat.\n\n**SUPPORT:** @TeamDrone\n**DEV:** @MaheshChauhan"
+
+ht = """Help:
+
+**FOR PUBLIC CHANNEL:**
+- Send me direct link of message. 
+
+**FOR PRIVATE CHANNEL:**
+- Login by API and pyrogram String session
+- Then send Link of message of any channel you've joined. 
+
+__>> If you don't know how to get API and String session.__
+
+- Get API details using @UseTGSbot or you can manually get it from official site my.telegram.org (login and click on api development tools) 
+
+- Get string session from @SessionStringGeneratorZBot 
+or https://replit.com/@dashezup/generate-pyrogram-session-string
+
+( Choose Pyrogram )"""
 
 @bot.on(events.NewMessage(incoming=True, pattern="/start"))
 async def start(event):
@@ -19,9 +37,9 @@ async def start(event):
                       buttons=[
                               [Button.inline("SET THUMB", data="sett"),
                                Button.inline("REM THUMB", data="remt")],
-                              [Button.inline("LOG-IN", data="login"),
-                               Button.inline("LOG-OUT", data="logout")],
-                              [Button.inline("Help.", data="help")],
+                              [Button.inline("LOG IN", data="login"),
+                               Button.inline("LOG OUT", data="logout")],
+                              [Button.inline("HELP", data="help")],
                               ])
     tag = f'[{event.sender.first_name}](tg://user?id={event.sender_id})'
     await event.client.send_message(int(ACCESS), f'{tag} started the BOT\nUserID: {event.sender_id}') 
@@ -81,7 +99,7 @@ async def lin(event):
     await event.delete()
     async with Drone.conversation(event.chat_id) as conv: 
         try:
-            xx = await conv.send_message("send me your `api_id` as a reply to this.")
+            xx = await conv.send_message("send me your `API_ID` as a reply to this.")
             x = await conv.get_reply()
             i = x.text
             await xx.delete()                    
@@ -91,7 +109,7 @@ async def lin(event):
             print(e)
             return await xx.edit("An error occured while waiting for the response.")
         try:
-            xy = await conv.send_message("send me the your `api_hash` as a reply to this.")  
+            xy = await conv.send_message("send me your `API_HASH` as a reply to this.")  
             y = await conv.get_reply()
             h = y.text
             await xy.delete()                    
@@ -101,7 +119,7 @@ async def lin(event):
             print(e)
             return await xy.edit("An error occured while waiting for the response.")
         try:
-            xz = await conv.send_message("send me the your `string session` as a reply to this.")  
+            xz = await conv.send_message("send me your `SESSION` as a reply to this.")  
             z = await conv.get_reply()
             s = z.text
             await xz.delete()                    
@@ -165,3 +183,22 @@ async def spb(event):
     else:
         return await event.edit("Your login credentials not found.")
    
+@bot.on(events.callbackquery.CallbackQuery(data="help"))
+async def help(event):
+    await event.edit(ht, buttons=[[Button.inline("BACK", data="menu")]])
+    
+@bot.on(events.callbackquery.CallbackQuery(data="help"))
+async def back(event):
+    await event.edit(st,
+                      buttons=[
+                              [Button.inline("SET THUMB", data="sett"),
+                               Button.inline("REM THUMB", data="remt")],
+                              [Button.inline("LOG IN", data="login"),
+                               Button.inline("LOG OUT", data="logout")],
+                              [Button.inline("HELP", data="help")],
+                              ])
+    
+    
+    
+    
+    
