@@ -16,13 +16,13 @@ forcesub_text = 'You have to join @Dronebots to use this bot.'
 async def start_bot(sender):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
-    x = await db.get_credentials(sender)
-    if x[0] and x[1] and x[2] is not None:
+    i, h, s = await db.get_credentials(sender)
+    if i and h and s is not None:
         try:
             userbot = Client(
-                session_name=x[2], 
-                api_hash=x[1], 
-                api_id=int(x[0]))
+                session_name=s, 
+                api_hash=h,
+                api_id=int(i))
             await userbot.start()
             await idle()
             return True, userbot
@@ -39,13 +39,13 @@ async def start_bot(sender):
 async def get_bot(sender):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
-    x = await db.get_credentials(sender)
-    if x[0] and x[1] and x[2] is not None:
+    i, h, s = await db.get_credentials(sender)
+    if i and h and s is not None:
         try:
             userbot = Client(
-                session_name=x[2], 
-                api_hash=x[1], 
-                api_id=int(x[0]))
+                session_name=s, 
+                api_hash=h,
+                api_id=int(i))
         except ValueError:
             return False, "INVALID API_ID: Logout and Login back with correct `API_ID`"
         except Exception as e:
