@@ -1,5 +1,7 @@
 #Github.com/Vasusen-code
 
+from main.Database.database import Database
+
 from pyrogram import Client, filters, idle
 from pyrogram.errors import FloodWait, BadRequest
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
