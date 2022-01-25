@@ -107,12 +107,21 @@ async def clone(bot, event):
         await event.reply_text(text=forcesub_text)
         return
     userbot = ""
-    s, u = await get_bot(event.chat.id)
-    if s == True:
-        userbot = u
+    MONGODB_URI = config("MONGODB_URI", default=None)
+    db = Database(MONGODB_URI, 'saverestricted')
+    i, h, s = await db.get_credentials(sender)
+    if i and h and s is not None:
+        try:
+            userbot = Client(
+                session_name=s, 
+                api_hash=h,
+                api_id=int(i))
+        except ValueError:
+            return await event.reply("INVALID API_ID: Logout and Login back with correct `API_ID`")
+        except Exception as e:
+            return await event.reply(f"Error: {str(e)}")
     else:
-        await event.reply_text(text=f'{u}') 
-        return
+        return await event.reply("Your login credentials not found.")
     if 't.me/+' in link:
         xy = await join(userbot, link)
         await event.reply_text(text=xy)
