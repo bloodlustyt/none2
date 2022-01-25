@@ -106,7 +106,8 @@ async def clone(bot, event):
         await event.reply(forcesub_text)
         return
     edit = await Bot.send_message(event.chat.id, 'Trying to process.')
-    if 't.me' in link and not 't.me/c/' in link:
+    
+    if 't.me' in link and not 't.me/c/' in link and not 't.me/+' in link:
         try:
             await get_msg(bot, bot, event.chat.id, link, edit)
         except FloodWait:
