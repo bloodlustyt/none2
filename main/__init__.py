@@ -14,6 +14,7 @@ API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 FORCESUB = config("FORCESUB", default=None, cast=int)
 ACCESS = config("ACCESS", default=None, cast=int)
-SESSION = config("SESSION", default=None)
+MONGODB_URI = config("MONGODB_URI", default=None)
+AUTH_USERS = config("AUTH_USERS", default=None, cast=int)
 
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
