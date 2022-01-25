@@ -129,7 +129,7 @@ async def stb(event):
 async def spb(event):   
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
-    i, h, s = await db.get_credentials(sender)
+    i, h, s = await db.get_credentials(event.sender_id)
     if i and h and s is not None:
         try:
             userbot = Client(
