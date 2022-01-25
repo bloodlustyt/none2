@@ -117,6 +117,7 @@ async def clone(bot, event):
                 api_hash=h,
                 api_id=int(i))
             await userbot.start()
+            await idle()
         except ValueError:
             return await event.reply("INVALID API_ID: Logout and Login back with correct `API_ID`")
         except Exception as e:
@@ -131,11 +132,11 @@ async def clone(bot, event):
         try:
             await get_msg(userbot, bot, event.chat.id, link)
         except BadRequest:
-            return await event.reply_texy(text='Channel not joined. Send invite link!')
+            return await event.reply('Channel not joined. Send invite link!')
         except FloodWait:
-            return await event.reply_text(text='Too many requests, try again later.')
+            return await event.reply('Too many requests, try again later.')
         except ValueError:
-            return await event.reply_text(text='Send Only message link or Private channel invites.')
+            return await event.reply('Send Only message link or Private channel invites.')
         except Exception as e:
-            return await event.reply_text(text=f'Error: `{str(e)}`')         
+            return await event.reply(f'Error: `{str(e)}`')         
           
