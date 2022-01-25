@@ -104,3 +104,28 @@ async def in(event):
             print(e)
             return await xz.edit("An error occured while waiting for the response.")
         await login(event.sender_id, i, h, s) 
+        await Drone.send_message(event.chat_id, "Login credentials saved, now click on START BOT button.")
+        
+@bot.on(events.callbackquery.CallbackQuery(data="logout"))
+async def out(event):
+    await event.edit("Trying to logout.")
+    await logout(sender)
+    await event.edit('successfully Logged out.')
+    
+@bot.on(events.callbackquery.CallbackQuery(data="startbot"))
+async def stb(event):
+    await event.edit('Trying to start.')
+    s, o = await start_bot(sender)
+    if s == True:
+        await event.edit('Started!')
+    else:
+        await event.edit(o)
+                         
+@bot.on(events.callbackquery.CallbackQuery(data="stopbot"))
+async def spb(event):   
+    s, o= await get_bot(sender)
+    if s == True:
+        await o.stop()
+        await event.edit("Bot stopped.")
+    else:
+        await event.edit(o)
