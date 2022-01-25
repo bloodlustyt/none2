@@ -185,11 +185,11 @@ async def spb(event):
    
 @bot.on(events.callbackquery.CallbackQuery(data="help"))
 async def help(event):
-    await event.edit(ht, buttons=[[Button.inline("BACK", data="menu")]])
+    await event.edit(ht, link_preview=False, buttons=[[Button.inline("BACK", data="menu")]])
     
 @bot.on(events.callbackquery.CallbackQuery(data="help"))
 async def back(event):
-    await event.edit(st,
+    await event.edit(st, 
                       buttons=[
                               [Button.inline("SET THUMB", data="sett"),
                                Button.inline("REM THUMB", data="remt")],
