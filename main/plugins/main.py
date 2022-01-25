@@ -1,6 +1,6 @@
 # Github.com/Vasusen-code
 
-from main.plugins.helpers import start_bot, get_link, forcesub, forcesub_text, join, set_timer, check_timer, screenshot
+from main.plugins.helpers import start_bot, get_bot, get_link, forcesub, forcesub_text, join, set_timer, check_timer, screenshot
 from main.plugins.display_progress import progress_for_pyrogram
 
 from decouple import config
@@ -8,7 +8,6 @@ from decouple import config
 API_ID = config("API_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
-SESSION = config("SESSION", default=None) #pyro session
 FORCESUB = config("FORCESUB", default=None) 
 ACCESS = config("ACCESS", default=None, cast=int)
 
@@ -31,11 +30,6 @@ Bot = Client(
     api_hash=API_HASH
 )
 
-userbot = Client(
-    session_name=SESSION, 
-    api_hash=API_HASH, 
-    api_id=API_ID)
-    
 async def get_msg(userbot, client, sender, msg_link):
     chat = ""
     msg_id = int(msg_link.split("/")[-1])
@@ -95,6 +89,7 @@ async def get_msg(userbot, client, sender, msg_link):
                 )
             await edit.delete()
             await set_timer(client, sender, process, timer) 
+            await userbot.stop()
         except Exception as e:
             await client.send_message(sender, F'ERROR: {str(e)}')
             return 
@@ -110,6 +105,13 @@ async def clone(bot, event):
     xx = await forcesub(bot, event.chat.id)
     if xx is True:
         await event.reply_text(text=forcesub_text)
+        return
+    userbot = ""
+    s, u = await get_bot(sender)
+    if s == True:
+        userbot = u
+    else:
+        await event.reply_text(text=f'{u}') 
         return
     if 't.me/+' in link:
         xy = await join(userbot, link)
