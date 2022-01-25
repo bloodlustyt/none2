@@ -3,7 +3,7 @@
 import os
 from .. import bot, ACCESS
 from telethon import events, Button, TelegramClient
-
+from decouple import config
 from pyrogram import Client, idle
 from main.plugins.main import Bot
 from main.plugins.helpers import login, logout
