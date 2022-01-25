@@ -12,7 +12,7 @@ FORCESUB = config("FORCESUB", default=None)
 ACCESS = config("ACCESS", default=None, cast=int)
 
 from pyrogram.errors import FloodWait, BadRequest
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from ethon.pyfunc import video_metadata
 
 import re, time, asyncio, logging
