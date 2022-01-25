@@ -4,7 +4,7 @@ import os
 from .. import bot, ACCESS
 from telethon import events, Button, TelegramClient
 
-from pyrogram import idle
+from pyrogram import Client, idle
 from main.plugins.main import Bot
 from main.plugins.helpers import login, logout, start_bot, get_bot
 st = "__Send me Link of any message to clone it here, For private channel message, send invite link first.__\n\nSUPPORT: @TeamDrone\nDEV: @MaheshChauhan"
@@ -127,9 +127,21 @@ async def stb(event):
                          
 @bot.on(events.callbackquery.CallbackQuery(data="stopbot"))
 async def spb(event):   
-    s, o= await get_bot(event.sender_id)
-    if s == True:
-        await o.stop()
-        await event.edit("Bot stopped.")
+    MONGODB_URI = config("MONGODB_URI", default=None)
+    db = Database(MONGODB_URI, 'saverestricted')
+    i, h, s = await db.get_credentials(sender)
+    if i and h and s is not None:
+        try:
+            userbot = Client(
+                session_name=s, 
+                api_hash=h,
+                api_id=int(i))
+            await userbot.stop()
+            await event.edit("Bot stopped!")
+        except ValueError:
+            return await event.edit("INVALID API_ID: Logout and Login back with correct `API_ID`")
+        except Exception as e:
+            return await event.edit(f"Error: {str(e)}")
     else:
-        await event.edit(o)
+        return await event.edit("Your login credentials not found.")
+   
