@@ -140,7 +140,7 @@ async def stb(event):
             else:
                 return await event.edit(f"Error: {str(e)}")
     else:
-        return await event.edit("Your login credentials not found."
+        return await event.edit("Your login credentials not found.")
     
 @bot.on(events.callbackquery.CallbackQuery(data="stopbot"))
 async def spb(event):   
