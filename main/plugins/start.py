@@ -113,13 +113,13 @@ async def lin(event):
 @bot.on(events.callbackquery.CallbackQuery(data="logout"))
 async def out(event):
     await event.edit("Trying to logout.")
-    await logout(sender)
+    await logout(event.sender_id)
     await event.edit('successfully Logged out.')
     
 @bot.on(events.callbackquery.CallbackQuery(data="startbot"))
 async def stb(event):
     await event.edit('Trying to start.')
-    s, o = await start_bot(sender)
+    s, o = await start_bot(event.sender_id)
     if s == True:
         await event.edit('Started!')
     else:
@@ -127,7 +127,7 @@ async def stb(event):
                          
 @bot.on(events.callbackquery.CallbackQuery(data="stopbot"))
 async def spb(event):   
-    s, o= await get_bot(sender)
+    s, o= await get_bot(event.sender_id)
     if s == True:
         await o.stop()
         await event.edit("Bot stopped.")
