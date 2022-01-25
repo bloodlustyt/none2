@@ -107,7 +107,7 @@ async def clone(bot, event):
         await event.reply_text(text=forcesub_text)
         return
     userbot = ""
-    s, u = await get_bot(sender)
+    s, u = await get_bot(event.chat.id)
     if s == True:
         userbot = u
     else:
