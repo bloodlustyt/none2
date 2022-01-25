@@ -13,30 +13,6 @@ forcesub_text = 'You have to join @Dronebots to use this bot.'
 
 #Multi client-------------------------------------------------------------------------------------------------------------
 
-async def start_bot(sender):
-    MONGODB_URI = config("MONGODB_URI", default=None)
-    db = Database(MONGODB_URI, 'saverestricted')
-    i, h, s = await db.get_credentials(sender)
-    if i and h and s is not None:
-        try:
-            userbot = Client(
-                session_name=s, 
-                api_hash=h,
-                api_id=int(i))
-            await userbot.start()
-            await idle()
-            return True, None
-        except ValueError:
-            return False, "INVALID API_ID: Logout and Login back with correct `API_ID`"
-        except Exception as e:
-            print(e)
-            if 'Client is already connected' in str(e):
-                return True, None
-        except Exception as e:
-            return False, f"Error: {str(e)}"
-    else:
-        return False, "Your login credentials not found."
-    
 async def login(sender, i, h, s):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
