@@ -30,17 +30,16 @@ Bot = Client(
     api_hash=API_HASH
 )
 
-async def get_msg(userbot, client, sender, msg_link):
+async def get_msg(userbot, client, sender, msg_link, edit):
     chat = ""
     msg_id = int(msg_link.split("/")[-1])
     if 't.me/c/' in msg_link:
         st, r = check_timer(sender, process, timer) 
         if st == False:
-            return await client.send_message(sender, r) 
+            return await edit.edit(r) 
         chat = int('-100' + str(msg_link.split("/")[-2]))
         try:
             msg = await userbot.get_messages(chat, msg_id)
-            edit = await client.send_message(sender, 'Trying to process.')
             file = await userbot.download_media(
                 msg,
                 progress=progress_for_pyrogram,
@@ -95,7 +94,8 @@ async def get_msg(userbot, client, sender, msg_link):
     else:
         chat =  msg_link.split("/")[-2]
         await client.copy_message(int(sender), chat, msg_id)
-    
+        await edit.delete()
+        
 @Bot.on_message(filters.private)
 async def clone(bot, event):
     link = get_link(event.text)
@@ -103,8 +103,9 @@ async def clone(bot, event):
         return
     xx = await forcesub(bot, event.chat.id)
     if xx is True:
-        await event.reply_text(text=forcesub_text)
+        await event.reply(forcesub_text)
         return
+    edit = await client.send_message(sender, 'Trying to process.')
     userbot = ""
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
@@ -117,23 +118,23 @@ async def clone(bot, event):
                 api_id=int(i))
             await userbot.start()
         except ValueError:
-            return await event.reply("INVALID API_ID: Logout and Login back with correct `API_ID`")
+            return await edit.edit("INVALID API_ID: Logout and Login back with correct `API_ID`")
         except Exception as e:
-            return await event.reply(f"Error: {str(e)}")
+            return await edit.edit(f"Error: {str(e)}")
     else:
         return await event.reply("Your login credentials not found.")
     if 't.me/+' in link:
         xy = await join(userbot, link)
-        await event.reply_text(text=xy)
+        await edit.edit(xy)
         return 
     if 't.me' in link:
         try:
-            await get_msg(userbot, bot, event.chat.id, link)
+            await get_msg(userbot, bot, event.chat.id, link, edit)
         except BadRequest:
-            return await event.reply('Channel not joined. Send invite link!')
+            return await edit.edit('Channel not joined. Send invite link!')
         except FloodWait:
-            return await event.reply('Too many requests, try again later.')
+            return await edit.edit('Too many requests, try again later.')
         except ValueError:
-            return await event.reply('Send Only message link or Private channel invites.')
+            return await edit.edit('Send Only message link or Private channel invites.')
         except Exception as e:
             return await event.reply(f'Error: `{str(e)}`')         
