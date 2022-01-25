@@ -6,7 +6,7 @@ from telethon import events, Button, TelegramClient
 
 from pyrogram import idle
 from main.plugins.main import Bot
-from main.plugins.helpers import login, logout, start_bot
+from main.plugins.helpers import login, logout, start_bot, get_bot
 st = "__Send me Link of any message to clone it here, For private channel message, send invite link first.__\n\nSUPPORT: @TeamDrone\nDEV: @MaheshChauhan"
 
 @bot.on(events.NewMessage(incoming=True, pattern="/start"))
