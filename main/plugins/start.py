@@ -71,7 +71,7 @@ async def access(event):
     await event.forward_to(ACCESS)
 
 @bot.on(events.callbackquery.CallbackQuery(data="login"))
-async def in(event):
+async def lin(event):
     Drone = event.client
     button = await event.get_message()
     msg = await button.get_reply_message()  
