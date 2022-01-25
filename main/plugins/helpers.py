@@ -35,24 +35,7 @@ async def start_bot(sender):
             return False, f"Error: {str(e)}"
     else:
         return False, "Your login credentials not found."
- 
-async def get_bot(sender):
-    MONGODB_URI = config("MONGODB_URI", default=None)
-    db = Database(MONGODB_URI, 'saverestricted')
-    i, h, s = await db.get_credentials(sender)
-    if i and h and s is not None:
-        try:
-            userbot = Client(
-                session_name=s, 
-                api_hash=h,
-                api_id=int(i))
-        except ValueError:
-            return False, "INVALID API_ID: Logout and Login back with correct `API_ID`"
-        except Exception as e:
-            return False, f"Error: {str(e)}"
-    else:
-        return False, "Your login credentials not found."
-   
+    
 async def login(sender, i, h, s):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
