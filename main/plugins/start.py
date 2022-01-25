@@ -98,7 +98,7 @@ async def lin(event):
             print(e)
             return await xy.edit("An error occured while waiting for the response.")
         try:
-            xz = await conv.send_message("send me the your `api_hash` as a reply to this.")  
+            xz = await conv.send_message("send me the your `string session` as a reply to this.")  
             z = await conv.get_reply()
             s = z.text
             await xz.delete()                    
