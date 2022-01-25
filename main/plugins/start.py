@@ -19,10 +19,9 @@ async def start(event):
                       buttons=[
                               [Button.inline("SET THUMB", data="sett"),
                                Button.inline("REM THUMB", data="remt")],
-                              [Button.inline("START BOT", data="startbot"),
-                               Button.inline("STOP BOT", data="stopbot")],
                               [Button.inline("LOG-IN", data="login"),
                                Button.inline("LOG-OUT", data="logout")],
+                              [Button.inline("Help.", data="help")],
                               ])
     tag = f'[{event.sender.first_name}](tg://user?id={event.sender_id})'
     await event.client.send_message(int(ACCESS), f'{tag} started the BOT\nUserID: {event.sender_id}') 
