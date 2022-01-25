@@ -2,7 +2,7 @@
 
 from main.plugins.helpers import start_bot, get_link, forcesub, forcesub_text, join, set_timer, check_timer, screenshot
 from main.plugins.display_progress import progress_for_pyrogram
-
+from main.Database.database import Database
 from decouple import config
 
 API_ID = config("API_ID", default=None, cast=int)
