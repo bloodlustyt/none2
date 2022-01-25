@@ -17,7 +17,7 @@ async def start_bot(sender):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     x = await db.get_credentials(sender)
-    if x[0] and x[1] and x[3] is not None:
+    if x[0] and x[1] and x[2] is not None:
         try:
             userbot = Client(
                 session_name=x[2], 
@@ -40,7 +40,7 @@ async def get_bot(sender):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     x = await db.get_credentials(sender)
-    if x[0] and x[1] and x[3] is not None:
+    if x[0] and x[1] and x[2] is not None:
         try:
             userbot = Client(
                 session_name=x[2], 
