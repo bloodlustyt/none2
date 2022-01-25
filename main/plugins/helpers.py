@@ -33,7 +33,26 @@ async def start_bot(sender):
             return False, f"Error: {str(e)}"
     else:
         return False, "Your login credentials not found."
-    
+ 
+async def get_bot(sender):
+    MONGODB_URI = config("MONGODB_URI", default=None)
+    db = Database(MONGODB_URI, 'saverestricted')
+    x = await db.get_credentials(sender)
+    if x[0] and x[1] and x[3] is not None:
+        try:
+            userbot = Client(
+                session_name=x[2], 
+                api_hash=x[1], 
+                api_id=int(x[0]))
+        except ValueError:
+            return False, "INVALID API_ID: Logout and Login back with correct `API_ID`"
+        except Exception as e:
+            return False, f"Error: {str(e)}"
+    else:
+        return False, "Your login credentials not found."
+   
+        
+        
 #Join private chat-------------------------------------------------------------------------------------------------------------
 
 async def join(client, invite_link):
