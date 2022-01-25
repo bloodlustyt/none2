@@ -89,7 +89,7 @@ async def get_msg(userbot, client, sender, msg_link, edit):
             await edit.delete()
             await set_timer(client, sender, process, timer) 
         except Exception as e:
-            await client.send_message(sender, F'ERROR: {str(e)}')
+            await edit.edit(F'ERROR: {str(e)}')
             return 
     else:
         chat =  msg_link.split("/")[-2]
@@ -122,7 +122,7 @@ async def clone(bot, event):
         except Exception as e:
             return await edit.edit(f"Error: {str(e)}")
     else:
-        return await event.reply("Your login credentials not found.")
+        return await edit.edit("Your login credentials not found.")
     if 't.me/+' in link:
         xy = await join(userbot, link)
         await edit.edit(xy)
@@ -137,4 +137,4 @@ async def clone(bot, event):
         except ValueError:
             return await edit.edit('Send Only message link or Private channel invites.')
         except Exception as e:
-            return await event.reply(f'Error: `{str(e)}`')         
+            return await edit.edit(f'Error: `{str(e)}`')         
