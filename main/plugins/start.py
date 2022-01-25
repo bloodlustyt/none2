@@ -2,11 +2,15 @@
 
 import os
 from .. import bot, ACCESS
+
 from telethon import events, Button, TelegramClient
 from decouple import config
 from pyrogram import Client, idle
+
 from main.plugins.main import Bot
 from main.plugins.helpers import login, logout
+from main.Database.database import Database
+
 st = "__Send me Link of any message to clone it here, For private channel message, send invite link first.__\n\nSUPPORT: @TeamDrone\nDEV: @MaheshChauhan"
 
 @bot.on(events.NewMessage(incoming=True, pattern="/start"))
