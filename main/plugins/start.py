@@ -119,7 +119,6 @@ async def out(event):
 @bot.on(events.callbackquery.CallbackQuery(data="startbot"))
 async def stb(event):
     await event.edit("Trying to start.")
-    async def start_bot(sender):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     i, h, s = await db.get_credentials(sender)
