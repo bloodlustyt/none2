@@ -26,12 +26,14 @@ async def start_bot(sender):
             return True, userbot
         except ValueError:
             return False, "INVALID API_ID: Logout and Login back with correct `API_ID`"
-        except 
-            return True, userbot
-        except
+        except Exception as e:
+            if 'Client is already connected' in str(e):
+                return True, userbot
+        except Exception as e:
             return False, f"Error: {str(e)}"
     else:
-        return None
+        return False, "Your login credentials not found."
+    
 #Join private chat-------------------------------------------------------------------------------------------------------------
 
 async def join(client, invite_link):
