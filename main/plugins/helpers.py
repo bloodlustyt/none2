@@ -78,8 +78,6 @@ async def join(client, invite_link):
     try:
         await client.join_chat(invite_link)
         return "Successfully joined the Channel"
-    except BadRequest:
-        return "Could not join. Maybe your link is expired or Invalid."
     except FloodWait:
         return "Too many requests, try again later."
     except Exception as e:
