@@ -106,6 +106,16 @@ async def clone(bot, event):
         await event.reply(forcesub_text)
         return
     edit = await Bot.send_message(event.chat.id, 'Trying to process.')
+    if 't.me' in link and not 't.me/c/' in link:
+        try:
+            await get_msg(bot, bot, event.chat.id, link, edit)
+        except FloodWait:
+            return await edit.edit('Too many requests, try again later.')
+        except ValueError:
+            return await edit.edit('Send Only message link or Private channel invites.')
+        except Exception as e:
+            return await edit.edit(f'Error: `{str(e)}`')         
+
     userbot = ""
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
@@ -130,11 +140,9 @@ async def clone(bot, event):
     if 't.me' in link:
         try:
             await get_msg(userbot, bot, event.chat.id, link, edit)
-        except BadRequest:
-            return await edit.edit('Channel not joined. Send invite link!')
+        except BadRequest.CHANNEL_INVALID:
+            return await edit.edit('Channel not joined! Send invite link or join manually.')
         except FloodWait:
             return await edit.edit('Too many requests, try again later.')
-        except ValueError:
-            return await edit.edit('Send Only message link or Private channel invites.')
         except Exception as e:
             return await edit.edit(f'Error: `{str(e)}`')         
