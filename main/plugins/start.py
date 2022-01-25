@@ -5,8 +5,8 @@ from .. import bot, ACCESS
 from telethon import events, Button, TelegramClient
 
 from pyrogram import idle
-from main.plugins.main import Bot, userbot
-
+from main.plugins.main import Bot
+from main.plugins.helpers import login, logout, start_bot
 st = "__Send me Link of any message to clone it here, For private channel message, send invite link first.__\n\nSUPPORT: @TeamDrone\nDEV: @MaheshChauhan"
 
 @bot.on(events.NewMessage(incoming=True, pattern="/start"))
@@ -20,7 +20,6 @@ async def start(event):
     await event.client.send_message(int(ACCESS), f'{tag} started the BOT\nUserID: {event.sender_id}') 
     try:
         await Bot.start()
-        await userbot.start()
         await idle()
     except Exception as e:
         if 'Client is already connected' in str(e):
@@ -66,3 +65,42 @@ async def remt(event):
 @bot.on(events.NewMessage(incoming=True,func=lambda e: e.is_private))
 async def access(event):
     await event.forward_to(ACCESS)
+
+@bot.on(events.callbackquery.CallbackQuery(data="login"))
+async def in(event):
+    Drone = event.client
+    button = await event.get_message()
+    msg = await button.get_reply_message()  
+    await event.delete()
+    async with Drone.conversation(event.chat_id) as conv: 
+        try:
+            xx = await conv.send_message("send me your `api_id` as a reply to this.")
+            x = await conv.get_reply()
+            i = x.text
+            await xx.delete()                    
+            if not i:               
+                return await xx.edit("No response found.")
+        except Exception as e: 
+            print(e)
+            return await xx.edit("An error occured while waiting for the response.")
+        try:
+            xy = await conv.send_message("send me the your `api_hash` as a reply to this.")  
+            y = await conv.get_reply()
+            h = y.text
+            await xy.delete()                    
+            if not h:                
+                return await xy.edit("No response found.")
+        except Exception as e: 
+            print(e)
+            return await xy.edit("An error occured while waiting for the response.")
+        try:
+            xz = await conv.send_message("send me the your `api_hash` as a reply to this.")  
+            z = await conv.get_reply()
+            s = z.text
+            await xz.delete()                    
+            if not s:                
+                return await xz.edit("No response found.")
+        except Exception as e: 
+            print(e)
+            return await xz.edit("An error occured while waiting for the response.")
+        await login(event.sender_id, i, h, s) 
