@@ -25,12 +25,13 @@ async def start_bot(sender):
                 api_id=int(i))
             await userbot.start()
             await idle()
-            return True, userbot
+            return True, None
         except ValueError:
             return False, "INVALID API_ID: Logout and Login back with correct `API_ID`"
         except Exception as e:
+            print(e)
             if 'Client is already connected' in str(e):
-                return True, userbot
+                return True, None
         except Exception as e:
             return False, f"Error: {str(e)}"
     else:
