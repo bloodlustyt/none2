@@ -89,9 +89,10 @@ async def get_msg(userbot, client, sender, msg_link):
                 )
             await edit.delete()
             await set_timer(client, sender, process, timer) 
-            await userbot.stop()
+            await userbot.idle()
         except Exception as e:
             await client.send_message(sender, F'ERROR: {str(e)}')
+            await userbot.idle()
             return 
     else:
         chat =  msg_link.split("/")[-2]
@@ -116,6 +117,7 @@ async def clone(bot, event):
                 session_name=s, 
                 api_hash=h,
                 api_id=int(i))
+            await userbot.stop()
             await userbot.start()
         except ValueError:
             return await event.reply("INVALID API_ID: Logout and Login back with correct `API_ID`")
@@ -132,10 +134,14 @@ async def clone(bot, event):
             await get_msg(userbot, bot, event.chat.id, link)
         except BadRequest:
             return await event.reply('Channel not joined. Send invite link!')
+            await userbot.idle()
         except FloodWait:
             return await event.reply('Too many requests, try again later.')
+            await userbot.idle()
         except ValueError:
             return await event.reply('Send Only message link or Private channel invites.')
+            await userbot.idle()
         except Exception as e:
             return await event.reply(f'Error: `{str(e)}`')         
-          
+            await userbot.idle()
+            
