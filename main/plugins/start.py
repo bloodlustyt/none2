@@ -6,7 +6,7 @@ from telethon import events, Button, TelegramClient
 
 from pyrogram import Client, idle
 from main.plugins.main import Bot
-from main.plugins.helpers import login, logout, start_bot
+from main.plugins.helpers import login, logout
 st = "__Send me Link of any message to clone it here, For private channel message, send invite link first.__\n\nSUPPORT: @TeamDrone\nDEV: @MaheshChauhan"
 
 @bot.on(events.NewMessage(incoming=True, pattern="/start"))
@@ -118,13 +118,31 @@ async def out(event):
     
 @bot.on(events.callbackquery.CallbackQuery(data="startbot"))
 async def stb(event):
-    await event.edit('Trying to start.')
-    s, o = await start_bot(event.sender_id)
-    if s == True:
-        await event.edit('Started!')
+    await event.edit("Trying to start.")
+    async def start_bot(sender):
+    MONGODB_URI = config("MONGODB_URI", default=None)
+    db = Database(MONGODB_URI, 'saverestricted')
+    i, h, s = await db.get_credentials(sender)
+    if i and h and s is not None:
+        try:
+            userbot = Client(
+                session_name=s, 
+                api_hash=h,
+                api_id=int(i))
+            await userbot.start()
+            await idle()
+            await event.edit("Started!")
+        except ValueError:
+            return await event.edit("INVALID API_ID: Logout and Login back with correct `API_ID`")
+        except Exception as e:
+            print(e)
+            if 'Client is already connected' in str(e):
+                return await event.edit("Already running.")
+            else:
+                return await event.edit(f"Error: {str(e)}")
     else:
-        await event.edit(o)
-                         
+        return await event.edit("Your login credentials not found."
+    
 @bot.on(events.callbackquery.CallbackQuery(data="stopbot"))
 async def spb(event):   
     MONGODB_URI = config("MONGODB_URI", default=None)
