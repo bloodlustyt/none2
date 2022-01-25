@@ -53,8 +53,25 @@ async def get_bot(sender):
     else:
         return False, "Your login credentials not found."
    
-        
-        
+async def login(sender, i, h, s):
+    MONGODB_URI = config("MONGODB_URI", default=None)
+    db = Database(MONGODB_URI, 'saverestricted')
+    await db.update_api_id(sender, i)
+    await db.update_api_hash(sender, h)
+    await db.update_session(sender, s)
+    
+async def logout(sender):
+    MONGODB_URI = config("MONGODB_URI", default=None)
+    db = Database(MONGODB_URI, 'saverestricted')
+    try:
+        userbot = await get_bot(sender)
+        await userbot.stop()
+    except:
+        pass
+    await db.rem_api_id(sender)
+    await db.rem_api_hash(sender)
+    await db.rem_session(sender)
+   
 #Join private chat-------------------------------------------------------------------------------------------------------------
 
 async def join(client, invite_link):
