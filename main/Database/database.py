@@ -67,10 +67,9 @@ class Database:
         
     async def get_credentials(self, id):
         user = await self.col.find_one({'id':int(id)})
-        credentials = []
-        credentials.append(user.get('api_id', None))
-        credentials.append(user.get('api_id', None))
-        credentials.append(user.get('session', None))
-        return credentials 
+        i = user.get('api_id', None)
+        h = user.get('api_hash', None)
+        s = user.get('session', None)
+        return i, h, s 
    
     
