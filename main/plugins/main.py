@@ -105,7 +105,7 @@ async def clone(bot, event):
     if xx is True:
         await event.reply(forcesub_text)
         return
-    edit = await client.send_message(sender, 'Trying to process.')
+    edit = await Bot.send_message(event.chat.id, 'Trying to process.')
     userbot = ""
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
