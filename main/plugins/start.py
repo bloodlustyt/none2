@@ -187,7 +187,7 @@ async def spb(event):
 async def help(event):
     await event.edit(ht, link_preview=False, buttons=[[Button.inline("BACK", data="menu")]])
     
-@bot.on(events.callbackquery.CallbackQuery(data="help"))
+@bot.on(events.callbackquery.CallbackQuery(data="menu"))
 async def back(event):
     await event.edit(st, 
                       buttons=[
