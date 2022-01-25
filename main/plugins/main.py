@@ -117,7 +117,6 @@ async def clone(bot, event):
                 api_hash=h,
                 api_id=int(i))
             await userbot.start()
-            await idle()
         except ValueError:
             return await event.reply("INVALID API_ID: Logout and Login back with correct `API_ID`")
         except Exception as e:
