@@ -64,8 +64,9 @@ async def logout(sender):
     MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     try:
-        userbot = await get_bot(sender)
-        await userbot.stop()
+        s, userbot = await get_bot(sender)
+        if s == True:
+            await userbot.stop()
     except:
         pass
     await db.rem_api_id(sender)
