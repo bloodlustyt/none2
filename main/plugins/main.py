@@ -33,7 +33,8 @@ Bot = Client(
 errorC = """Error: Couldn't start client by Login credentials. Check these:
 
 - is your API details entered right? 
-- Did you send "Pyrogram" string session? """
+- Did you send "Pyrogram" string session? 
+- Do not send string in bold, italic or any other fonts."""
 
 async def get_msg(userbot, client, sender, msg_link, edit):
     chat = ""
