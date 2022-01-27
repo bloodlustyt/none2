@@ -130,7 +130,7 @@ async def lin(event):
             print(e)
             return await xz.edit("An error occured while waiting for the response.")
         await login(event.sender_id, i, h, s) 
-        await Drone.send_message(event.chat_id, "Login credentials saved, now click on START BOT button.")
+        await Drone.send_message(event.chat_id, "Login credentials saved.")
         
 @bot.on(events.callbackquery.CallbackQuery(data="logout"))
 async def out(event):
