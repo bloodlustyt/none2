@@ -22,14 +22,14 @@ ht = """Help:
 - Login by API and pyrogram String session
 - Then send Link of message of any channel you've joined. 
 
-__>> If you don't know how to get API and String session.__
+__>> How to Login?__
 
 - Get API details using @UseTGSbot or you can manually get it from official site my.telegram.org (login and click on api development tools) 
 
-- Get string session from @SessionStringGeneratorZBot 
+- Get Pyrogram string session from @SessionStringGeneratorZBot 
 or https://replit.com/@dashezup/generate-pyrogram-session-string
 
-( Choose Pyrogram )"""
+- send /start and click on Login."""
 
 @bot.on(events.NewMessage(incoming=True, pattern="/start"))
 async def start(event):
@@ -196,7 +196,8 @@ async def back(event):
                                Button.inline("REM THUMB", data="remt")],
                               [Button.inline("LOG IN", data="login"),
                                Button.inline("LOG OUT", data="logout")],
-                              [Button.inline("HELP", data="help")],
+                              [Button.inline("HELP", data="help"),
+                               Button.url("SOURCE", url="github.com/vasusen-code/saverestrictedcontentbot")],
                               ])
     
     
