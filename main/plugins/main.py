@@ -24,11 +24,16 @@ process=[]
 timer=[]
 
 Bot = Client(
-    "Simple-Pyrogram-Bot",
+    "save-restricted-bot",
     bot_token=BOT_TOKEN,
     api_id=int(API_ID),
     api_hash=API_HASH
 )
+
+errorC = """Error: Couldn't start client by Login credentials. Check these:
+
+- is your API details entered right? 
+- Did you send "Pyrogram" string session? """
 
 async def get_msg(userbot, client, sender, msg_link, edit):
     chat = ""
@@ -131,7 +136,8 @@ async def clone(bot, event):
         except ValueError:
             return await edit.edit("INVALID API_ID: Logout and Login back with correct `API_ID`")
         except Exception as e:
-            return await edit.edit(f"Error: {str(e)}")
+            print(e)
+            return await edit.edit(errorC)
     else:
         return await edit.edit("Your login credentials not found.")
     if 't.me/+' in link:
