@@ -108,10 +108,10 @@ async def clone(bot, event):
         return
     edit = await bot.send_message(event.chat.id, 'Trying to process.')
     if 't.me/+' or 't.me/joinchat/' in link:
-        xy = await join(userbot, link)
-        await edit.edit(xy)
+        x, y = await join(userbot, link)
+        await edit.edit(y)
         return 
-    if 't.me' in link:
+    if 't.me' and not 't.me/joinchat/' in link:
         try:
             await get_msg(userbot, bot, event.chat.id, link, edit) 
         except FloodWait:
