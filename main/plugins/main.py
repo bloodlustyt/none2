@@ -9,9 +9,9 @@ from pyrogram.errors import FloodWait, BadRequest
 from pyrogram import Client, filters, idle
 from ethon.pyfunc import video_metadata
 
-import re, time, asyncio, logging
+import os, re, time, asyncio, logging
 
-from .. import API_ID, API_HASH, BOT_TOKEN, FORCESUB, ACCESS
+from .. import API_ID, API_HASH, BOT_TOKEN, FORCESUB, ACCESS, MONGODB_URI
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -89,6 +89,7 @@ async def get_msg(userbot, client, sender, msg_link, edit):
                     )
                 )
             await edit.delete()
+            await os.remove(file)
             await set_timer(client, sender, process, timer) 
         except Exception as e:
             await edit.edit(F'ERROR: {str(e)}')
@@ -120,7 +121,6 @@ async def clone(bot, event):
             return await edit.edit(f'Error: `{str(e)}`')         
 
     userbot = ""
-    MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     i, h, s = await db.get_credentials(event.chat.id)
     if i and h and s is not None:
