@@ -9,7 +9,7 @@ from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 import asyncio, subprocess, re, os, time
 from decouple import config
 
-forcesub_text = 'You have to join @Dronebots to use this bot.'
+forcesub_text = 'You have to join @Rumblebots to use this bot.'
 
 #Multi client-------------------------------------------------------------------------------------------------------------
 
