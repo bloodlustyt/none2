@@ -11,7 +11,7 @@ from main.plugins.main import Bot
 from main.plugins.helpers import login, logout
 from main.Database.database import Database
 
-st = "Send me __Link__ of any __Public__ channel message to clone it here, For __private__ channel message, First __Login__ then send any __message link__ from your chat.\n\n**SUPPORT:** @RumbleSupport\n**DEV:** @MaheshChauhan"
+st = "Send me __Link__ of any __Public__ channel message to clone it here, For __private__ channel message, First __Login__ then send any __message link__ from your chat.\n\n**SUPPORT:** @TeamDrone\n**DEV:** @MaheshChauhan"
 
 ht = """Help:
 
@@ -22,7 +22,7 @@ ht = """Help:
 - Login by API and pyrogram String session
 - Then send Link of message of any channel you've joined. 
 
-__>> How to Login?__
+**>> How to Login?**
 
 - Get API details using @UseTGSbot or you can manually get it from official site my.telegram.org (login and click on api development tools) 
 
