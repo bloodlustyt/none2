@@ -16,7 +16,6 @@ forcesub_text = 'You have to join @Rumblebots to use this bot.'
 #Multi client-------------------------------------------------------------------------------------------------------------
 
 async def login(sender, i, h, s):
-    MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     await db.update_api_id(sender, i)
     await db.update_api_hash(sender, h)
