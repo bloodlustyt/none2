@@ -5,17 +5,13 @@ from main.plugins.display_progress import progress_for_pyrogram
 from main.Database.database import Database
 from decouple import config
 
-API_ID = config("API_ID", default=None, cast=int)
-API_HASH = config("API_HASH", default=None)
-BOT_TOKEN = config("BOT_TOKEN", default=None)
-FORCESUB = config("FORCESUB", default=None) 
-ACCESS = config("ACCESS", default=None, cast=int)
-
 from pyrogram.errors import FloodWait, BadRequest
 from pyrogram import Client, filters, idle
 from ethon.pyfunc import video_metadata
 
 import re, time, asyncio, logging
+
+from .. import API_ID, API_HASH, BOT_TOKEN, FORCESUB, ACCESS
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
