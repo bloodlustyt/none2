@@ -1,5 +1,7 @@
 #Github.com/Vasusen-code
 
+from .. import MONGODB_URI, FORCESUB
+
 from main.Database.database import Database
 
 from pyrogram import Client, filters, idle
@@ -21,7 +23,6 @@ async def login(sender, i, h, s):
     await db.update_session(sender, s)
     
 async def logout(sender):
-    MONGODB_URI = config("MONGODB_URI", default=None)
     db = Database(MONGODB_URI, 'saverestricted')
     await db.rem_api_id(sender)
     await db.rem_api_hash(sender)
@@ -41,7 +42,6 @@ async def join(client, invite_link):
 #forcesub-------------------------------------------------------------------------------------------------------------
 
 async def forcesub(bot, sender):
-    FORCESUB = config("FORCESUB", default=None)
     if not str(FORCESUB).startswith("-100"):
         FORCESUB = int("-100" + str(FORCESUB))
     try:
