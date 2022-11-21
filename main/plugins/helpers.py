@@ -42,7 +42,9 @@ async def join(client, invite_link):
 
 async def forcesub(bot, sender):
     if not str(FORCESUB).startswith("-100"):
-        FORCESUB = int("-100" + str(FORCESUB))
+        FSUB = int("-100" + str(FORCESUB))
+    else:
+        FSUB = FORCESUB
     try:
         user = await bot.get_chat_member(FORCESUB, sender)
         if user.status == "kicked":
