@@ -67,7 +67,8 @@ def get_link(string):
             return link
         else:
             return False
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
     
 #Anti-Spam---------------------------------------------------------------------------------------------------------------
