@@ -11,7 +11,7 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 # variables
 API_ID = 3599592
 API_HASH = "80865dfca1e192f81931cbf61203cfe7"
-BOT_TOKEN = "5147519086:AAE4BKvnVw5fta_zqwDI7BhdkQv-7nmuWm4"
+BOT_TOKEN = "5892773891:AAEmB5zVEnsBBI_-OaSdSwvIWzRLiytv9dY"
 FORCESUB = int("-1001720432898")
 ACCESS = int("-1001768362393")
 MONGODB_URI = "mongodb+srv://Vasusen:darkmaahi@cluster0.o7uqb.mongodb.net/cluster0?retryWrites=true&w=majority"
